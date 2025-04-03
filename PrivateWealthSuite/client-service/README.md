@@ -35,19 +35,9 @@
 - Spring Boot Starter Web
 - Spring Boot Starter Data JPA
 - Spring Cloud Starter Config
-- Spring Cloud Starter Bus Kafka
-- Spring Boot Starter Data Redis
-- JJWT
 - Lombok
 - Spring Cloud Starter Netflix Eureka Client
-- Spring Boot Starter Validation
-- JAXB API
-- JAXB Core
-- JAXB Impl
 - Java Activation API
-- Spring Cloud OpenFeign Core
-- Java JWT
-
 ## 五、项目结构
 
 ```plaintext
