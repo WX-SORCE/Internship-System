@@ -1,0 +1,66 @@
+/* index-num.css */
+@font-face {
+    font-family: electronicFont;
+    src: url("~@/assets/font/DS-DIGIT.TTF");
+  }
+  
+  .index-num {
+    background-color: #0f2159;
+    border-radius: 4px;
+    width: 96%;
+    margin: 0 auto;
+  }
+  
+  .index-row-value {
+    position: relative;
+    padding: 8px 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    height: 62px;
+  }
+  
+  .index-col {
+    flex: 1;
+    font-family: electronicFont;
+    font-size: 52px;
+    color: #ffeb7b;
+    text-align: center;
+  }
+  
+  .index-divider {
+    height: unset;
+    margin-block: 20px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .index-row-value::before,
+  .index-row-value::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 15px;
+  }
+  
+  .index-row-value::before {
+    top: 0;
+    left: 0;
+    border-top: 2px solid #02a6b5;
+    border-left: 2px solid #02a6b5;
+  }
+  
+  .index-row-value::after {
+    right: 0;
+    bottom: 0;
+    border-right: 2px solid #02a6b5;
+    border-bottom: 2px solid #02a6b5;
+  }
+  
+  .index-row-label {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .index-row-label.index-col {
+    flex: 1;
+    margin: 8px 0;
+    font-size: 16px;
+    text-align: center;
+  }
