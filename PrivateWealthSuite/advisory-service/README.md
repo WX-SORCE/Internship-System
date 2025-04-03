@@ -37,7 +37,7 @@
 - Spring Boot Starter Data JPA
 - Spring Boot Starter Web
 - Commons Math3
-- MySQL Connector/J
+- MySQL Connector
 - Lombok
 - Spring Cloud OpenFeign Core
 - Spring Cloud Starter OpenFeign
