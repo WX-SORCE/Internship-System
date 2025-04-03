@@ -1,0 +1,101 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    loadbalancer:
+      configurations: zone-preference
+      health-check:
+        initial-delay: 2s  # 调整为2秒初始延迟
+        interval: 30s
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: "http://localhost:3000"
+            allowed-methods: "*"
+            allowed-headers: "*"
+            allow-credentials: true
+            max-age: 3600
+      routes:
+        # 用户登录鉴权 9000
+        - id: auth-service
+          uri: lb://auth-service       # lb表示负载均衡算法
+          predicates:
+            - Path=/v1/auth/**
+        # 客户信息服务 9001
+        - id: client-service
+          uri: lb://client-service
+          predicates:
+            - Path=/v1/client/**
+        # 投资组合服务 9002
+        - id:  portfolio-service
+          uri: lb://portfolio-service
+          predicates:
+            - Path=/v1/portfolios/**
+        # 推荐组合服务 9003
+        - id: advisory-service
+          uri: lb://advisory-service
+          predicates:
+            - Path=/v1/advisory/**
+        # 交易服务 9004
+        - id: trade-service
+          uri: lb://trade-service
+          predicates:
+            - Path=/v1/trade/**
+        # 审批服务 9005
+        - id: approval-service
+          uri: lb://approval-service
+          predicates:
+            - Path=/v1/approval/**
+        # ⻛控与KYC服务 9006
+        - id: risk-service
+          uri: lb://risk-service
+          predicates:
+            - Path=/v1/risk/**
+        # 异步通知服务 9007
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/v1/notification/**
+#        # 服务注册中心 8761
+#        - id: eureka-service
+#          uri: lb://eureka-service
+#          predicates:
+#            - Path=/v1/eureka/**
+        # 配置中心 8888
+#        - id: config-service
+#          uri: lb://config-service
+#          predicates:
+#            - Path=/config/**
+        # 消息队列 9092
+#        - id: kafka-service
+#          uri: lb://kafka-service
+#          predicates:
+#            - Path=/kafka/**
+#          filters:
+#            - StripPrefix=1
+        # kafka依赖组件 2181
+        # mysql 3306
+        # redis 6379
+
+#eureka:
+#  instance:
+#    hostname: auth-service
+#    prefer-ip-address: true #是否使用ip注册
+#    instance-id: ${spring.cloud.client.ip-address}:${server.port} #ip:port
+#  client:
+#    register-with-eureka: true #是否将自己注册到注册中心
+#    fetch-registry: true #是否从注册中心服务注册信息
+#    #注册中心对外暴露的注册地址
+#    service-url:
+#      default zone: http://localhost:8761/eureka/#
+#      http://{eureka.instance.hostname}: ${server.port}/eureka/
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
