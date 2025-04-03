@@ -1,0 +1,74 @@
+spring:
+  application:
+    name: risk-service
+    version: 1.0.0
+  cloud:
+    bus:
+      enabled: true
+      refresh:
+        enabled: true
+    config:
+      uri: http://localhost:8888
+  config:
+    import: configserver:http://localhost:8888
+  kafka:
+    bootstrap-servers: localhost:9092 # Kafka 服务器地址
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+  cache:
+    type: redis
+    redis:
+      key-prefix: ${spring.application.name}
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 0
+      password:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: NON_NULL
+    serialization:
+      indent-output: true
+      fail-on-empty-beans: false
+    deserialization:
+      fail-on-unknown-properties: false
+    parser:
+      allow-single-quotes: true
+      allow-unquoted-control-chars: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+logging:
+  file:
+    name: ./logs/${spring.application.name}.log
+  pattern:
+    console: "%d %p [%X{traceId}] [%thread] %c[%L]::%m%n"
+    file: "%d %p [%X{traceId}] [%thread] %c[%L]::%m%n"
+    dateformat: yyyy-MM-dd HH:mm:ss.SSS
+  level:
+    root: WARN
+    org.springframework.cloud.openfeign: DEBUG
+    com.hsbc.pws.RiskServerApplication: INFO
+    com.hsbc.pws.common.log.LogAspect: DEBUG
+    com.hsbc.pws.rsik: DEBUG
+risk:
+  page:
+    size: 10
+  local:
+    cache:
+      expire: 5
+  scheduled:
+    cron:
+      remind:
+          HalfYear: 0 0 8 * * ?
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 暴露所有 Actuator 端点，生产环境可按需调整
