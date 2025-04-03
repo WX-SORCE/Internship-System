@@ -1,0 +1,69 @@
+spring:
+  application:
+    name: auth-service
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/privatewealthsuite?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+#    username: root
+#    password: 123456
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    bus:
+      enabled: true
+      refresh:
+        enabled: true
+    config:
+      uri: http://localhost:8888
+  config:
+    import: configserver:http://localhost:8888
+  kafka:
+    bootstrap-servers: localhost:9092 # Kafka 服务器地址
+  jpa:
+    hibernate:
+      ddl-auto: update  # 自动更新数据库表结构
+    show-sql: true  # 显示执行的 SQL 语句
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect  # 指定数据库方言
+        format_sql: true
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id: your-google-client-id
+#            client-secret: your-google-client-secret
+#            scope: openid,email,profile
+#          github:
+#            client-id: your-github-client-id
+#            client-secret: your-github-client-secret
+#            scope: user:email
+#        provider:
+#          google:
+#            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+#          github:
+#            user-info-uri: https://api.github.com/user
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
+#eureka:
+#  instance:
+#    hostname: auth-service
+#    prefer-ip-address: true #是否使用ip注册
+#    instance-id: ${spring.cloud.client.ip-address}:${server.port} #ip:port
+#  client:
+#    register-with-eureka: true #是否将自己注册到注册中心
+#    fetch-registry: true #是否从注册中心服务注册信息
+#    #注册中心对外暴露的注册地址
+#    service-url:
+#      default zone: http://localhost:8761/eureka/#
+#      http://{eureka.instance.hostname}: ${server.port}/eureka/
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # 暴露所有 Actuator 端点，生产环境可按需调整
